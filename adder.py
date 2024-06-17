@@ -53,6 +53,19 @@ class Adder:
 
         return s, carry
 
+    def add_3_2(self, a, b, c, cin):
+        xor1 = a ^ b
+        xor2 = c ^ cin
+
+        xor3 = xor1 ^ xor2
+
+        s = xor3
+        carry = cin & (not xor3)
+
+        cout = c if xor1 == True else a
+        
+        return s, carry, cout
+    
     def add_4_2(self, a, b, c, d, cin):
         xor1 = a ^ b
         xor2 = xor1 ^ (c ^ d)
@@ -63,3 +76,18 @@ class Adder:
         cout = c if xor1 == 1 else a 
 
         return s, carry, cout
+
+    def add_5_2(self, a, b, c, d, e, cin1, cin2):
+        sel1 = a ^ b
+        sel2 = sel1 ^ (c ^ d)
+        sel3 = sel2 ^ (e ^ cin1)
+
+        s = sel3 ^ cin2
+
+        cout1 = c if sel1 == True else a
+
+        cout2 = cin1 if sel2 == True else d
+
+        carry = cin2 if sel3 == True else  e
+
+        return s, carry, cout1, cout2
